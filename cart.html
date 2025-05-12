@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Shopping Cart</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    <section>
+        <h2>Items in Your Cart</h2>
+        <div id="cart-items"></div>
+        <p id="total-price"></p>
+    </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your E-commerce Store</p>
+    </footer>
+    <script>
+    const cartContainer = document.getElementById('cart-items');
+    const totalPriceEl = document.getElementById('total-price');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+        let total = 0;
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.innerHTML = `<strong>${item.name}</strong> - ${item.price}`;
+            cartContainer.appendChild(div);
+            total += parseFloat(item.price.replace('$', ''));
+        });
+        totalPriceEl.textContent = `Total: $${total.toFixed(2)}`;
+    }
+</script>
+</body>
+</html>
